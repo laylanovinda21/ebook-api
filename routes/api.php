@@ -23,6 +23,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::group(['middleware' => ['auth:sanctum']], function (){
+
 Route::get('books', [BookController::class, 'index']);
 Route::post('books', [BookController::class, 'store']);
 Route::get('books/{id}', [BookController::class, 'show']);
@@ -35,7 +37,13 @@ Route::get('authors/{id}', [AuthorController::class, 'show']);
 Route::put('authors/{id}', [AuthorController::class, 'update']);
 Route::delete('authors/{id}', [AuthorController::class, 'destroy']);
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
 Route::post('/me', [AuthController::class, 'me']);
-Route::post('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+
+Route::post('/logout', [AuthController::class, 'logout']);
+
+});
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);  
+
+

@@ -31,6 +31,16 @@ class AuthController extends Controller
                     'token_type' => 'Bearer',
   ]);
   }
+
+public function logout(Request $request)
+    {
+        Auth::user()->tokens()->delete();
+
+        return [
+            'message' => 'Anda Telah Keluar'
+        ];
+    }
+
   public function login(Request $request)
   {
   if (!Auth::attempt($request->only('email', 'password'))) {
